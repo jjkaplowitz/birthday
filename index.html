@@ -1,1 +1,827 @@
-d
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Josh's Birthday Celebration on the Water</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --navy-950:#060b14;
+    --navy-900:#0a1220;
+    --navy-800:#101d30;
+    --twilight:#1e3350;
+    --magenta:#ff3a9b;
+    --cyan:#2fe0ff;
+    --sand:#efe7d4;
+    --mist:#93a7bd;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+
+  body{
+    background:var(--navy-950);
+    color:var(--sand);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ -webkit-tap-highlight-color:transparent; }
+
+  ::selection{ background:var(--magenta); color:var(--navy-950); }
+
+  a{color:inherit;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--mist);
+  }
+
+  .eyebrow em{
+    font-style:normal;
+    color:var(--cyan);
+  }
+
+  /* ---------------- HERO ---------------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:8vh 6vw 7vh;
+    isolation:isolate;
+  }
+
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(180deg, rgba(6,11,20,.35) 0%, rgba(6,11,20,.55) 45%, rgba(6,11,20,.97) 100%),
+      url('IMG_1572.jpeg');
+    background-size:cover, cover;
+    background-position:center, center 38%;
+    z-index:-2;
+    filter:saturate(1.08);
+  }
+
+  .hero-vignette{
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(6,11,20,.6) 100%);
+    z-index:-1;
+  }
+
+  .hero-eyebrow{ margin-bottom:2.2vh; }
+
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-optical-sizing:auto;
+    line-height:.92;
+    font-size:clamp(2.8rem, 10vw, 7.4rem);
+    letter-spacing:-.01em;
+    color:var(--sand);
+  }
+
+  .hero h1 .accent{
+    font-style:italic;
+    font-weight:300;
+    background:linear-gradient(100deg, var(--magenta), var(--cyan));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero-sub{
+    margin-top:3vh;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6em 1.4em;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--mist);
+  }
+
+  .hero-sub b{ color:var(--sand); font-weight:500; }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:4vh; left:6vw;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--mist);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .scroll-cue::after{
+    content:'';
+    width:1px; height:34px;
+    background:linear-gradient(var(--cyan), transparent);
+    animation:drip 2.2s ease-in-out infinite;
+  }
+
+  @keyframes drip{
+    0%{ transform:scaleY(0); transform-origin:top; opacity:0;}
+    40%{ transform:scaleY(1); transform-origin:top; opacity:1;}
+    60%{ transform:scaleY(1); transform-origin:bottom; opacity:1;}
+    100%{ transform:scaleY(0); transform-origin:bottom; opacity:0;}
+  }
+
+  /* ---------------- LIGHT PATH DIVIDER ---------------- */
+  .lightpath{
+    position:relative;
+    height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(10px, 3vw, 26px);
+    background:var(--navy-900);
+    overflow:hidden;
+  }
+
+  .lightpath .dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 10px 2px var(--cyan);
+    animation:pulse 3.2s ease-in-out infinite;
+  }
+
+  .lightpath .dot:nth-child(odd){
+    background:var(--magenta);
+    box-shadow:0 0 10px 2px var(--magenta);
+    width:5px; height:5px;
+    animation-delay:.9s;
+  }
+
+  .lightpath .dot:nth-child(4n){ animation-delay:1.8s; }
+  .lightpath .dot:nth-child(5n){ animation-delay:.4s; }
+
+  @keyframes pulse{
+    0%, 100%{ opacity:.35; transform:scale(1); }
+    50%{ opacity:1; transform:scale(1.5); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .lightpath .dot, .scroll-cue::after{ animation:none; opacity:.8; }
+  }
+
+  /* ---------------- SECTION SHELL ---------------- */
+  section{
+    padding:11vh 6vw;
+    position:relative;
+  }
+
+  .section-head{ margin-bottom:6vh; max-width:640px; }
+
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:clamp(2rem, 4.2vw, 3.1rem);
+    margin-top:1.2vh;
+    color:var(--sand);
+  }
+
+  /* ---------------- DETAILS (cleats) ---------------- */
+  .details{ background:var(--navy-900); }
+
+  .cleats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--twilight);
+    border:1px solid var(--twilight);
+  }
+
+  .cleat{
+    background:var(--navy-900);
+    padding:5vh 3vw;
+    display:flex;
+    flex-direction:column;
+    gap:1.6vh;
+  }
+
+  .cleat .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    color:var(--cyan);
+    text-transform:uppercase;
+  }
+
+  .cleat h3{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:clamp(1.5rem, 2.6vw, 2.1rem);
+    line-height:1.15;
+  }
+
+  .cleat p{
+    font-size:14px;
+    color:var(--mist);
+    line-height:1.6;
+  }
+
+  @media (max-width: 780px){
+    .cleats{ grid-template-columns:1fr; }
+  }
+
+  /* ---------------- AMENITIES ---------------- */
+  .amenities{ background:var(--navy-950); }
+
+  .amenity-list{
+    max-width:680px;
+    margin:0 auto;
+  }
+
+  .amenity-row{
+    display:flex;
+    align-items:center;
+    gap:4vw;
+    padding:3.4vh 0;
+    border-bottom:1px solid var(--twilight);
+  }
+
+  .amenity-row:first-child{
+    border-top:1px solid var(--twilight);
+  }
+
+  .amenity-icon{
+    flex:0 0 auto;
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .amenity-icon svg{ width:34px; height:34px; overflow:visible; }
+
+  .amenity-row:nth-child(odd) .amenity-icon{ color:var(--cyan); }
+  .amenity-row:nth-child(even) .amenity-icon{ color:var(--magenta); }
+
+  .amenity-text{ flex:1 1 auto; display:flex; justify-content:space-between; align-items:baseline; gap:4vw; }
+
+  .amenity-label{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(1.3rem, 2.4vw, 1.7rem);
+    color:var(--sand);
+    white-space:nowrap;
+  }
+
+  .amenity-desc{
+    font-size:14px;
+    color:var(--mist);
+    line-height:1.6;
+    text-align:right;
+    max-width:34ch;
+  }
+
+  @keyframes wobble{
+    0%, 100%{ transform:rotate(-7deg); }
+    50%{ transform:rotate(7deg); }
+  }
+  .icon-games{ transform-origin:50% 50%; animation:wobble 2.6s ease-in-out infinite; }
+
+  @keyframes bubbleRise{
+    0%{ transform:translateY(0); opacity:0; }
+    20%{ opacity:1; }
+    100%{ transform:translateY(-13px); opacity:0; }
+  }
+  .icon-champagne .bubble{ animation:bubbleRise 2.4s ease-in infinite; }
+  .icon-champagne .bubble:nth-child(4){ animation-delay:.5s; }
+  .icon-champagne .bubble:nth-child(5){ animation-delay:1s; }
+
+  @keyframes steamRise{
+    0%{ transform:translateY(2px) scaleY(.85); opacity:0; }
+    35%{ opacity:.9; }
+    100%{ transform:translateY(-9px) scaleY(1.1); opacity:0; }
+  }
+  .icon-food .steam{ transform-origin:bottom; animation:steamRise 2.8s ease-in-out infinite; }
+  .icon-food .steam:nth-child(3){ animation-delay:.7s; }
+
+  @keyframes smokeDrift{
+    0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
+    25%{ opacity:.8; }
+    100%{ transform:translate(5px,-14px) rotate(14deg); opacity:0; }
+  }
+  .icon-cigar .smoke{ animation:smokeDrift 3.2s ease-in-out infinite; }
+  .icon-cigar .smoke:nth-child(3){ animation-delay:1s; }
+
+  @keyframes eqBar{
+    0%, 100%{ transform:scaleY(.35); }
+    50%{ transform:scaleY(1); }
+  }
+  .icon-dj rect{ transform-box:fill-box; transform-origin:bottom; animation:eqBar 1s ease-in-out infinite; }
+  .icon-dj rect:nth-child(1){ animation-delay:0s; }
+  .icon-dj rect:nth-child(2){ animation-delay:.15s; }
+  .icon-dj rect:nth-child(3){ animation-delay:.3s; }
+  .icon-dj rect:nth-child(4){ animation-delay:.45s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .icon-games, .icon-champagne .bubble, .icon-food .steam, .icon-cigar .smoke, .icon-dj rect{
+      animation:none !important;
+    }
+  }
+
+  @media (max-width: 560px){
+    .amenity-row{ gap:5vw; }
+    .amenity-text{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:1vh;
+    }
+    .amenity-desc{ text-align:left; max-width:none; }
+  }
+
+  /* ---------------- DRESS CODE ---------------- */
+  .dress-intro{
+    max-width:640px;
+    margin:0 auto 6vh;
+    text-align:center;
+  }
+
+  .dress-code-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    background:var(--navy-800);
+    border:1px solid var(--twilight);
+    color:var(--cyan);
+    padding:8px 14px;
+    display:inline-block;
+    margin-bottom:3vh;
+  }
+
+  .dress-intro p{
+    color:var(--mist);
+    font-size:16px;
+    line-height:1.75;
+    margin:0 auto 1.4vh;
+    max-width:52ch;
+  }
+
+  .dress-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6vw;
+    align-items:start;
+  }
+
+  .dress-col-photo{
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+    max-width:340px;
+    margin:0 auto 3.5vh;
+    background:linear-gradient(160deg, var(--twilight), var(--navy-800));
+  }
+
+  .dress-col-photo img{
+    width:100%; height:100%; object-fit:cover;
+    filter:saturate(1.05);
+  }
+
+  .dress-col-photo::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(200deg, rgba(255,58,155,.18), transparent 55%);
+    mix-blend-mode:overlay;
+  }
+
+  .dress-subhead{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-bottom:2vh;
+    text-align:center;
+  }
+
+  .dress-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2.4vw;
+  }
+
+  .dress-grid h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-bottom:1.4vh;
+  }
+
+  .dress-grid.yes h4{ color:var(--cyan); }
+  .dress-grid .no h4{ color:var(--magenta); }
+
+  .dress-grid ul{ list-style:none; }
+  .dress-grid li{
+    font-size:13.5px;
+    color:var(--mist);
+    padding:6px 0;
+    border-top:1px solid var(--twilight);
+    line-height:1.4;
+  }
+  .dress-grid li:first-child{ border-top:none; }
+
+  @media (max-width: 780px){
+    .dress-cols{ grid-template-columns:1fr; gap:7vh; }
+    .dress-col-photo{ max-width:260px; }
+  }
+
+  /* ---------------- RSVP ---------------- */
+  .rsvp{
+    text-align:center;
+    background:var(--navy-900);
+  }
+
+  .rsvp .section-head{ margin:0 auto 5vh; text-align:center; }
+
+  .countdown{
+    display:flex;
+    justify-content:center;
+    gap:clamp(16px, 4vw, 40px);
+    margin-bottom:6vh;
+  }
+
+  .countdown .box{
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+
+  .countdown .box .val{
+    font-family:'Fraunces', serif;
+    font-size:clamp(2.2rem, 6vw, 3.6rem);
+    font-variant-numeric:tabular-nums;
+    background:linear-gradient(160deg, var(--sand), var(--mist));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  .countdown .box .lbl{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--mist);
+  }
+
+  .rsvp-btn{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--navy-950);
+    background:linear-gradient(100deg, var(--cyan), var(--magenta));
+    padding:20px 46px;
+    border-radius:2px;
+    transition:transform .25s ease, box-shadow .25s ease;
+    box-shadow:0 0 0 rgba(255,58,155,0);
+  }
+
+  .rsvp-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 34px -8px rgba(255,58,155,.5);
+  }
+
+  .rsvp-note{
+    margin-top:3vh;
+    font-size:13px;
+    color:var(--mist);
+  }
+
+  /* ---------------- SMALL PHONE REFINEMENTS ---------------- */
+  @media (max-width: 480px){
+    .hero{ padding:9vh 6vw 6vh; min-height:100vh; }
+    .hero h1{ font-size:2.55rem; line-height:1.04; }
+    .hero-sub{ font-size:12.5px; gap:.5em 1em; }
+    .scroll-cue{ bottom:3vh; }
+
+    section{ padding:8vh 6vw; }
+    .section-head{ margin-bottom:4.5vh; }
+    .section-head h2{ font-size:1.7rem; line-height:1.25; }
+
+    .cleat{ padding:4.5vh 6vw; }
+    .cleat h3{ font-size:1.35rem; }
+    .cleat p{ font-size:14.5px; }
+
+    .dress-col-photo{ max-width:200px; }
+    .dress-intro{ text-align:left; }
+    .dress-intro p{ font-size:15px; max-width:none; }
+
+    .dress-grid{
+      grid-template-columns:1fr !important;
+      gap:1.6vh !important;
+    }
+
+    .countdown{ flex-wrap:wrap; row-gap:3vh; gap:22px; }
+    .countdown .box .val{ font-size:2rem; }
+
+    .rsvp-btn{ padding:18px 34px; font-size:12px; width:100%; text-align:center; }
+    .rsvp-note{ font-size:12px; }
+
+    footer{ justify-content:center; text-align:center; gap:1vh 0; }
+    footer span{ width:100%; }
+  }
+
+  /* ---------------- FOOTER ---------------- */
+  footer{
+    padding:6vh 6vw 8vh;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    color:var(--mist);
+    text-transform:uppercase;
+    border-top:1px solid var(--twilight);
+    background:var(--navy-900);
+    flex-wrap:wrap;
+    gap:1.5vh;
+  }
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-eyebrow eyebrow">Thirty, Allegedly · <em>Jacksonville Beach</em></div>
+    <h1>Josh's Birthday<br>Celebration<br><span class="accent">on the Water</span></h1>
+    <div class="hero-sub">
+      <span><b>Saturday, August 1</b></span>
+      <span>·</span>
+      <span><b>6 – 10 PM</b></span>
+      <span>·</span>
+      <span>Private Residence, Jax Beach</span>
+      <span>·</span>
+      <span>Business Casual</span>
+    </div>
+    <div class="scroll-cue">Details</div>
+  </section>
+
+  <div class="lightpath" aria-hidden="true">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <section class="details">
+    <div class="section-head">
+      <div class="eyebrow">The Fine Print (Sort Of)</div>
+      <h2>Show up. We'll handle the rest.</h2>
+    </div>
+    <div class="cleats">
+      <div class="cleat">
+        <div class="num">01 — Date</div>
+        <h3>Saturday,<br>August 1st</h3>
+        <p>Clear the calendar. "I have a dentist thing" will not hold up in court.</p>
+      </div>
+      <div class="cleat">
+        <div class="num">02 — Time</div>
+        <h3>6:00 – 10:00 PM</h3>
+        <p>Doors at six. Bring an appetite and zero plans for tomorrow morning.</p>
+      </div>
+      <div class="cleat">
+        <div class="num">03 — Place</div>
+        <h3>Private Residence<br>Jax Beach</h3>
+        <p>Exact address drops once you confirm you're in. A little mystery never hurt anyone.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightpath" aria-hidden="true">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <section class="amenities">
+    <div class="section-head">
+      <div class="eyebrow">On the Docket (Literally)</div>
+      <h2>Everything a proper thirtieth requires. And then some.</h2>
+    </div>
+    <div class="amenity-list">
+      <div class="amenity-row">
+        <div class="amenity-icon">
+          <svg class="icon-games" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="6" y="6" width="28" height="28" rx="7"/>
+            <circle cx="14" cy="14" r="2.1" fill="currentColor" stroke="none"/>
+            <circle cx="26" cy="14" r="2.1" fill="currentColor" stroke="none"/>
+            <circle cx="20" cy="20" r="2.1" fill="currentColor" stroke="none"/>
+            <circle cx="14" cy="26" r="2.1" fill="currentColor" stroke="none"/>
+            <circle cx="26" cy="26" r="2.1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="amenity-text">
+          <div class="amenity-label">Games</div>
+          <div class="amenity-desc">Yard games, mild competition, and someone taking it way too seriously.</div>
+        </div>
+      </div>
+
+      <div class="amenity-row">
+        <div class="amenity-icon">
+          <svg class="icon-champagne" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M13 6 L27 6 L21 21 L21 30" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 34 H29" stroke-linecap="round"/>
+            <path d="M21 30 V34" stroke-linecap="round"/>
+            <circle class="bubble" cx="17.5" cy="17" r="1.1" fill="currentColor" stroke="none"/>
+            <circle class="bubble" cx="22" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
+            <circle class="bubble" cx="19" cy="9.5" r="1.1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="amenity-text">
+          <div class="amenity-label">Champagne</div>
+          <div class="amenity-desc">Toasting to thirty. Glasses refill themselves — allegedly.</div>
+        </div>
+      </div>
+
+      <div class="amenity-row">
+        <div class="amenity-icon">
+          <svg class="icon-food" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2">
+            <ellipse cx="20" cy="30" rx="15" ry="5"/>
+            <path class="steam" d="M13 20 C13 16 17 16 17 12" stroke-linecap="round"/>
+            <path class="steam" d="M20 20 C20 16 24 16 24 12" stroke-linecap="round"/>
+            <path class="steam" d="M27 20 C27 16 31 16 31 12" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="amenity-text">
+          <div class="amenity-label">Catered Food</div>
+          <div class="amenity-desc">An actual dinner — not seven tiny appetizers cosplaying as one.</div>
+        </div>
+      </div>
+
+      <div class="amenity-row">
+        <div class="amenity-icon">
+          <svg class="icon-cigar" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="3" y="25" width="23" height="6.5" rx="3.2" transform="rotate(-20 3 25)" stroke-linejoin="round"/>
+            <path class="smoke" d="M27 15 C29 13 27 10 29 8" stroke-linecap="round"/>
+            <path class="smoke" d="M30 18 C32 16 30 13 32 11" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="amenity-text">
+          <div class="amenity-label">Cigars</div>
+          <div class="amenity-desc">A proper selection, dock-side, water view included. Coughing optional.</div>
+        </div>
+      </div>
+
+      <div class="amenity-row">
+        <div class="amenity-icon">
+          <svg class="icon-dj" viewBox="0 0 40 40" fill="none">
+            <rect x="6" y="18" width="4.5" height="14" rx="1.5" fill="currentColor"/>
+            <rect x="15" y="9" width="4.5" height="23" rx="1.5" fill="currentColor"/>
+            <rect x="24" y="14" width="4.5" height="18" rx="1.5" fill="currentColor"/>
+            <rect x="33" y="5" width="4.5" height="27" rx="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="amenity-text">
+          <div class="amenity-label">DJ</div>
+          <div class="amenity-desc">Live sets from six till the neighbors start filing complaints.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightpath" aria-hidden="true">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <section class="dress">
+    <div class="dress-intro">
+      <div class="dress-code-tag">Dress Code — Business Casual</div>
+      <p>Think sharp, not stiff — like you tried, not like you're closing a merger.</p>
+      <p>It's an evening by the water, so leave room to actually move. No costumes, no themes — just don't show up looking like you got lost on the way to a different party.</p>
+    </div>
+
+    <div class="dress-cols">
+      <div class="dress-col">
+        <div class="dress-col-photo">
+          <img src="josh.JPG" alt="For him — business casual example">
+        </div>
+        <div class="dress-subhead" style="color:var(--cyan);">For Him</div>
+        <div class="dress-grid">
+          <div class="yes">
+            <h4>Wear</h4>
+            <ul>
+              <li>Blazer or sport coat (optional)</li>
+              <li>Button-down or polo</li>
+              <li>Chinos or dark denim</li>
+              <li>Loafers or clean sneakers</li>
+            </ul>
+          </div>
+          <div class="no">
+            <h4>Skip</h4>
+            <ul>
+              <li>Full suit & tie</li>
+              <li>Graphic tees</li>
+              <li>Shorts & flip-flops</li>
+              <li>Anything you can't dance in</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="dress-col">
+        <div class="dress-col-photo">
+          <img src="girl.jpg" alt="For her — summer dress example">
+        </div>
+        <div class="dress-subhead" style="color:var(--magenta);">For Her</div>
+        <div class="dress-grid">
+          <div class="yes">
+            <h4>Wear</h4>
+            <ul>
+              <li>Summer or sun dress</li>
+              <li>Flowy midi or maxi</li>
+              <li>Dressy jumpsuit</li>
+              <li>Wedges, sandals, or flats</li>
+            </ul>
+          </div>
+          <div class="no">
+            <h4>Skip</h4>
+            <ul>
+              <li>Formal gown / cocktail black-tie</li>
+              <li>Stilettos on grass or dock</li>
+              <li>Beach cover-ups & swimwear</li>
+              <li>All-white (just in case)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightpath" aria-hidden="true">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <section class="rsvp">
+    <div class="section-head">
+      <div class="eyebrow">Tick Tock</div>
+      <h2>The countdown doesn't care if you're ready.</h2>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <div class="box"><div class="val" id="cd-days">00</div><div class="lbl">Days</div></div>
+      <div class="box"><div class="val" id="cd-hours">00</div><div class="lbl">Hours</div></div>
+      <div class="box"><div class="val" id="cd-mins">00</div><div class="lbl">Minutes</div></div>
+      <div class="box"><div class="val" id="cd-secs">00</div><div class="lbl">Seconds</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Josh — Thirty Years Old, Zero Years Wiser</span>
+    <span>Jacksonville Beach, FL</span>
+  </footer>
+
+<script>
+  const target = new Date('2026-08-01T18:00:00');
+
+  function updateCountdown(){
+    const now = new Date();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
